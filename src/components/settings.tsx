@@ -26,7 +26,7 @@ const SettingsInput = (props: any) => {
             setMinutes(getMinutes(timeItem.time.startTime));
             setSeconds(getSeconds(timeItem.time.startTime));
         }
-    });
+    }, [timeItem]);
     
     var time = timeItem.time;
 
@@ -346,7 +346,7 @@ export default function Settings() {
         if (hideMenu) {
             setClassName(`${defaultClassName} ${speen}`);
         }
-    });
+    }, [hideMenu]);
 
     return <>
         <i 

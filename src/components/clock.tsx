@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import useInterval from '../functions/useInterval';
 import TimerState from "@/types/timerState";
@@ -27,26 +27,32 @@ export default function Clock() {
     const [localTimerList, setTimerList] = useRecoilState<TimerList>(timerList);
     const [currentState, setCurrentState] = useRecoilState<TimerListItem>(currentTimerItem);
 
+    const [initialised, setInitialised] = useState(false);
+
     // load the first state
     useEffect(() => {
-        if (localTimerList.head == null) {
-            return;
+        if (!initialised) {
+            if (localTimerList.head == null) {
+                setInitialised(true);
+                return;
+            }
+    
+            if (!(localTimerList.head instanceof TimerListItem)) {
+                setInitialised(true);
+                return;
+            }
+            
+            setCurrentState(localTimerList.head as TimerListItem);
+            console.log(`initialising as ${localTimerList.head.time.label}`);
+            setTimerState({
+                time: localTimerList.head.time.startTime,
+                startTime: localTimerList.head.time.startTime,
+                paused: true,
+                label: localTimerList.head.time.label,
+            });
+            setInitialised(true);
         }
-
-        if (!(localTimerList.head instanceof TimerListItem)) {
-            return;
-        }
-        
-        setCurrentState(localTimerList.head as TimerListItem);
-        console.log(`initialising as ${localTimerList.head.time.label}`);
-        setTimerState({
-            time: localTimerList.head.time.startTime,
-            startTime: localTimerList.head.time.startTime,
-            paused: true,
-            label: localTimerList.head.time.label,
-        });
-        return;
-    });
+     }, [initialised]);
     
     // tick if not paused
     useInterval(() => {
@@ -65,14 +71,14 @@ export default function Clock() {
             setPaused(true);
             nextTimerState();
         }
-    });
+    }, [localTimerState]);
 
     useEffect(() => {
         if (!localTimerState.paused && audio.currentTime != 0) {
             audio.pause();
             audio.currentTime = 0;
         }
-    });
+    }, [localTimerState]);
     
     
     function setTime(newTime: number) {
