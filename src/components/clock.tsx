@@ -46,7 +46,7 @@ export default function Clock() {
             label: localTimerList.head.time.label,
         });
         return;
-    }, []);
+    });
     
     // tick if not paused
     useInterval(() => {

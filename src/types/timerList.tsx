@@ -38,8 +38,15 @@ export default class TimerList extends List {
             if (i == null) {
                 return arr;
             }
+
+            var dupe = this.duplicate(i);
+
+            if (dupe == null) {
+                return arr;
+            }
+
             console.log(`(toString()) pushing time ${i.time.label}`)
-            arr.push(this.duplicate(i));
+            arr.push(dupe);
             i = i?.next as TimerListItem;
 
         } while (i != this.head);
