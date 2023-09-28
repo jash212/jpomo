@@ -83,8 +83,8 @@ const SettingsInput = (props: any) => {
         var arr = localTimerList.getCloneArray();
 
         // reset current list item as the references are now gone
-        var duplicate = arr.find((item) => item.id == timeItem.id);
-        var currentDupe = arr.find((item) => item.id == currentItem.id);
+        var duplicate = arr.find((item) => item.id == timeItem.id) as TimerListItem;
+        var currentDupe = arr.find((item) => item.id == currentItem.id) as TimerListItem;
 
         if (duplicate == null) {
             return;
@@ -127,8 +127,8 @@ const SettingsInput = (props: any) => {
 
     const handleLabelChange = (e : ChangeEvent<HTMLInputElement>) => {
         var arr = localTimerList.getCloneArray();
-        var duplicate = arr.find((item) => item.id == timeItem.id);
-        var currentDupe = arr.find((item) => item.id == currentItem.id);
+        var duplicate = arr.find((item) => item.id == timeItem.id) as TimerListItem;
+        var currentDupe = arr.find((item) => item.id == currentItem.id) as TimerListItem;
 
         if (duplicate == null) {
             return;
@@ -227,7 +227,7 @@ function PlusButton() {
     const handleClick = () => {
         // add new time to end of localtimer list
         var arr = localTimerList.getCloneArray();
-        var currentDupe = arr.find((item) => item.id == currentItem.id);
+        var currentDupe = arr.find((item) => item.id == currentItem.id) as TimerListItem;
 
         if (arr.length == 0) {
             return;
@@ -274,8 +274,8 @@ function BinButton(props: any) {
     const handleClick = () => {
         // add new time to end of localtimer list
         var arr = localTimerList.getCloneArray();
-        var removeDupe = arr.find((item) => item.id == itemToRemove.id)
-        var currentDupe = arr.find((item) => item.id == currentItem.id);
+        var removeDupe = arr.find((item) => item.id == itemToRemove.id) as TimerListItem;
+        var currentDupe = arr.find((item) => item.id == currentItem.id) as TimerListItem;
 
         if (arr.length <= 1) {
             console.log('too few timers to delete one!');
@@ -284,7 +284,7 @@ function BinButton(props: any) {
 
         // change current dupe to prev if deleted item is the current one
         if (currentItem.id == removeDupe.id) {
-            currentDupe = arr.find((item) => item.id == itemToRemove.prev.id);
+            currentDupe = arr.find((item) => item.id == itemToRemove.prev.id) as TimerListItem;
         }
         
         arr = arr.filter((item) => item.id !== itemToRemove.id);
@@ -292,6 +292,10 @@ function BinButton(props: any) {
         arr = arr.map((item: TimerListItem) => item.detach());
 
         var newList = new TimerList(...arr);
+
+        if (newList.head == null) {
+            return;
+        }
 
         if (newList.size == 1) {
             newList.head.next = newList.head;
@@ -354,11 +358,11 @@ export default function Settings() {
         >
         </i>
 
-        <Collapse className='position-absolute w-100' in={hideMenu} dimension={"height"} style={{maxHeight: "50%"}}>
-            <div className='settings bg-white p-3 border-bottom overflow-auto'>
+        <Collapse className='position-absolute w-100' in={hideMenu} dimension={"height"} >
+            <div className='settings bg-white p-3 border-bottom overflow-auto' style={{maxHeight: "50%"}}>
                 <h2 className="text-center"> settings </h2>
 
-                <div className="container  p-1">
+                <div className="container p-1">
                     <h4 className="text-center"> Pomodoros </h4>
                     <>
                         {localTimerList.getArray().map((item) => { 
@@ -367,7 +371,6 @@ export default function Settings() {
                     </>
                     <PlusButton />
                 </div>
-                
             </div>
         </Collapse>
     </>
