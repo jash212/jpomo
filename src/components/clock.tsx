@@ -29,6 +29,14 @@ export default function Clock() {
 
     // load the first state
     useEffect(() => {
+        if (localTimerList.head == null) {
+            return;
+        }
+
+        if (!(localTimerList.head instanceof TimerListItem)) {
+            return;
+        }
+        
         setCurrentState(localTimerList.head as TimerListItem);
         console.log(`initialising as ${localTimerList.head.time.label}`);
         setTimerState({
@@ -95,7 +103,11 @@ export default function Clock() {
         }));
     }
 
-    function nextTimerState() {
+    function nextTimerState() {        
+        if (!(currentState.next instanceof TimerListItem)) {
+            return;
+        }
+        
         // replace currentState if it changed
         setCurrentState(currentState.next);
         setTimerState({
@@ -107,6 +119,9 @@ export default function Clock() {
     }
 
     function prevTimerState() {
+        if (!(currentState.prev instanceof TimerListItem)) {
+            return;
+        }
         // replace currentState if it changed
         setCurrentState(currentState.prev);
         setTimerState({
