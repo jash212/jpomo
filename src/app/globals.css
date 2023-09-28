@@ -1,3 +1,6 @@
+@import url("../../node_modules/font-awesome/css/font-awesome");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -38,6 +41,29 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input {
+  border: 1px solid gray;
+  border-radius: 12px;
 }
 
 .footer {
@@ -47,4 +73,55 @@
   height: 2em;
   line-height: 2em;
   background-color: #f5f5f5;
+}
+
+@keyframes bounceKeyframes {
+  0% { transform: scaleX(1.1) scaleY(0.9) }
+  50% { transform: scaleX(0.9) scaleY(1.1) }
+  100% { transform: scaleX(1.1) scaleY(0.9) }
+}
+
+@keyframes jumpAnimation {
+  0% { 
+    transform: scaleX(1.1) scaleY(0.9);
+    top: 26%;
+  }
+  50% { 
+    transform: scaleX(0.9) scaleY(1.1);
+    top: 10%;
+  }
+  100% { 
+    transform: scaleX(1.1) scaleY(0.9);
+    top: 26%;
+  }
+}
+
+img.bounce {
+  animation-name: bounceKeyframes;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+}
+
+img.jump {  
+  position: absolute;
+  left: 6%;
+  animation-name: jumpAnimation;
+  animation-duration: 800ms;
+  animation-iteration-count: infinite;
+}
+
+div.about-background {
+  background-color: #00000034;
+}
+
+div.clock {
+  z-index: -3 !important;
+}
+
+div.settings {
+  z-index: -2 !important;
+}
+
+footer {
+  z-index: -1 !important;
 }
