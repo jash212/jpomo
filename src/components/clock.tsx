@@ -43,7 +43,6 @@ export default function Clock() {
             }
             
             setCurrentState(localTimerList.head as TimerListItem);
-            console.log(`initialising as ${localTimerList.head.time.label}`);
             setTimerState({
                 time: localTimerList.head.time.startTime,
                 startTime: localTimerList.head.time.startTime,
@@ -73,6 +72,7 @@ export default function Clock() {
         }
     }, [localTimerState]);
 
+    // interrupt audio
     useEffect(() => {
         if (!localTimerState.paused && audio.currentTime != 0) {
             audio.pause();
@@ -139,7 +139,6 @@ export default function Clock() {
     }
 
     function handleSkip() {
-        console.log(`skipping`);
         audio.pause();
         audio.currentTime = 0;
         setPaused(true);
@@ -160,7 +159,6 @@ export default function Clock() {
     };
 
     const handlePrev = () => {
-        console.log(`skipping`);
         audio.pause();
         audio.currentTime = 0;
         setPaused(true);

@@ -89,6 +89,7 @@ const SettingsInput = (props: any) => {
         if (duplicate == null) {
             return;
         }
+
         var index = arr.indexOf(duplicate);
         if (index == -1) {
             return;

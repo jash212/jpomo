@@ -52,9 +52,8 @@ export default function About() {
 
     // timeout to give the about window time to fade out before making it invisible
     useEffect(() => {
-        console.log(hideAbout);
         if (hideAbout) {
-            setTimeout(() => { setVisible(false) }, 500);
+            setTimeout(() => { setVisible(false) }, 1000);
         } else {
             setVisible(true);
         }
