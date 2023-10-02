@@ -45,7 +45,6 @@ export default class TimerList extends List {
                 return arr;
             }
 
-            console.log(`(toString()) pushing time ${i.time.label}`)
             arr.push(dupe);
             i = i?.next as TimerListItem;
 
